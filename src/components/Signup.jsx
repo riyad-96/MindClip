@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Input from './Input';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { CloseEyeSvg, ErrorSvg, LoaderSvg, OpenEyeSvg } from './Svgs';
 
 function Signup() {
   const signupEmailInputRef = useRef(null);
@@ -119,7 +120,7 @@ function Signup() {
             placeholder="Email address"
           />
           <span className={`flex items-center gap-2 overflow-hidden text-xs tracking-wide text-red-500 transition-[height] duration-100 select-none ${emailError ? 'h-[20px]' : 'h-0'}`}>
-            {errorSvg()}
+            <ErrorSvg />
             <span>{emailError}</span>
           </span>
         </div>
@@ -136,18 +137,18 @@ function Signup() {
             placeholder="Password"
           />
           <span className={`flex items-center gap-2 overflow-hidden text-xs tracking-wide text-red-500 transition-[height] duration-100 select-none ${passError ? 'h-[20px]' : 'h-0'}`}>
-            {errorSvg()}
+            <ErrorSvg />
             <span>{passError}</span>
           </span>
 
           <button onClick={() => setIsPasswordVisible((prev) => !prev)} className={`absolute top-1/2 right-2 grid size-[35px] translate-y-[-50%] cursor-pointer place-items-center rounded-full text-zinc-500 transition-opacity hover:bg-zinc-200 hover:text-zinc-800 ${signupPass.trim() ? '' : 'pointer-events-none opacity-0'}`}>
-            {isPasswordVisible ? openEyeSvg() : closeEyeSvg()}
+            {isPasswordVisible ? <OpenEyeSvg/> : <CloseEyeSvg />}
             <span className="absolute -inset-2 rounded-full [@media(pointer:fine)]:hidden"></span>
           </button>
         </div>
 
         <button onClick={handleSignup} className="h-[50px] w-full cursor-pointer grid place-items-center rounded-full bg-zinc-950 text-sm font-medium tracking-wide text-white hover:bg-zinc-800 active:bg-zinc-700">
-          {tryingToSignup ? loaderSvg() : <span>Continue</span>}
+          {tryingToSignup ? <LoaderSvg className='animate-spin' width="24" height="24" /> : <span>Continue</span>}
         </button>
       </div>
       <span className={`block overflow-hidden text-center select-none text-sm text-red-500 transition-[height_margin-top] duration-100 ${signupError ? 'mt-4 h-[20px]' : 'mt-0 h-0'}`}>{signupError}</span>
