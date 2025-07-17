@@ -1,18 +1,17 @@
-import React from 'react';
-import IsLoggedInProvider from './isLoggedInContext/IsLoggedInProvider';
-import UserContextProvider from './userContext/userContextProvider';
-import NotesContextProvider from './notesContext/NotesContextProvider';
+import IsLoggedInContextProvider from './IsLoggedInContextProvider'
+import UserContextProvider from './UserContextProvider'
+import NotesContextProvider from './NotesContextProvider'
 
 function ContextProviders({ children }) {
   return (
-    <IsLoggedInProvider>
+    <IsLoggedInContextProvider>
       <UserContextProvider>
         <NotesContextProvider>
           {children}
         </NotesContextProvider>
       </UserContextProvider>
-    </IsLoggedInProvider>
-  );
+    </IsLoggedInContextProvider>
+  )
 }
 
 export default ContextProviders;

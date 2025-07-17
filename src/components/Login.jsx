@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from './Input';
-import { isLoggedInContext } from '../contexts/contexts';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { CloseEyeSvg, ErrorSvg, LoaderSvg, OpenEyeSvg } from './Svgs';

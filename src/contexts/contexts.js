@@ -1,5 +1,5 @@
-import { isLoggedInContext } from './isLoggedInContext/isLogggedInContext';
-import { userContext } from './userContext/userContext';
-import { notesContext } from './notesContext/notesContext';
+import { useIsLoggedIn } from './IsLoggedInContextProvider';
+import { useUser } from './UserContextProvider';
+import { useNotes } from './NotesContextProvider';
 
-export { isLoggedInContext, userContext, notesContext };
+export { useIsLoggedIn, useUser, useNotes };

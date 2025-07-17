@@ -9,9 +9,9 @@ import Auth from './pages/Auth.jsx';
 import Home from './pages/Home.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
-import ContextProviders from './contexts/ContextProviders.jsx';
 import Notes from './components/Notes.jsx';
 import Trash from './components/Trash.jsx';
+import ContextProviders from './contexts/ContextProviders.jsx';
 
 const router = createBrowserRouter([
   {

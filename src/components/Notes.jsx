@@ -1,13 +1,14 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { notesContext, userContext } from '../contexts/contexts';
+import { useCallback, useEffect, useState } from 'react';
+import { useNotes, useUser } from '../contexts/contexts';
+
 import { db } from '../config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { LoaderSvg } from './Svgs';
 import EachNote from './EachNote';
 
 function Notes() {
-  const { user } = useContext(userContext);
-  const { notes, setNotes } = useContext(notesContext);
+  const { user } = useUser();
+  const { notes, setNotes } = useNotes();
   const [noteIsLoading, setNoteIsLoading] = useState(true);
 
   //! FetchNotes
@@ -42,11 +43,7 @@ function Notes() {
   return (
     <div className="">
       <h1 className="text-3xl font-medium">Notes</h1>
-      <div className="border">
-        {noteIsLoading ? <LoaderSvg/> : (
-          notes.map(note => <EachNote key={note.id} note={note} />)
-        )}
-      </div>
+      <div className="border">{noteIsLoading ? <LoaderSvg /> : notes.map((note) => <EachNote key={note.id} note={note} />)}</div>
     </div>
   );
 }
