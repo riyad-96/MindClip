@@ -14,12 +14,15 @@ function EachNote({ note, func }) {
       }}
       animate={{
         opacity: 1,
-        transition: { duration: 1 },
+        transition: { duration: 0.3 },
       }}
-      className="space-y-3 group relative rounded-lg border border-zinc-200 p-3 text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
+      exit={{
+        opacity: 0,
+      }}
+      className="group relative grid max-w-[810px] grid-rows-[23px_1fr] gap-2 rounded-lg border border-zinc-200 p-4 text-zinc-700 transition-[box-shadow,color,background-color] select-none hover:text-zinc-950 hover:shadow-md"
     >
-      <span className="font-medium leading-tight line-clamp-1 text-lg">{title}</span>
-      <div className="line-clamp-4 min-h-[40px] whitespace-pre-wrap leading-snug">{text}</div>
+      <span className="line-clamp-1 text-lg leading-tight font-medium">{title}</span>
+      <div className="line-clamp-5 min-h-[50px] leading-snug whitespace-pre-wrap">{text}</div>
 
       <span
         onContextMenu={(e) => {
@@ -27,7 +30,7 @@ function EachNote({ note, func }) {
           const minRight = window.innerWidth - e.clientX;
           openContextMenu({ clientX: minRight < 145 ? e.clientX - 128 : e.clientX, clientY: e.clientY, id });
         }}
-        className="absolute inset-0 z-1 cursor-pointer"
+        className="absolute inset-0 z-1 cursor-pointer active:bg-white/30"
       ></span>
     </motion.div>
   );

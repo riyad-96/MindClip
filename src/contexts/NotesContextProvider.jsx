@@ -3,8 +3,9 @@ const notesContext = createContext();
 
 function NotesContextProvider({children}) {
   const [notes, setNotes] = useState([]);
+  const [trashes, setTrashes] = useState([]);
   return (
-    <notesContext.Provider value={{notes, setNotes}}>
+    <notesContext.Provider value={{notes, setNotes, trashes, setTrashes}}>
       {children}
     </notesContext.Provider>
   )
