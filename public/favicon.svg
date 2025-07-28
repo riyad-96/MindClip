@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+  <rect width="100" height="100" rx="20" fill="#000" />
+  <path d="M30 30 v40" stroke="#fff" stroke-width="6" stroke-linecap="round" />
+  <path d="M70 30 v40" stroke="#fff" stroke-width="6" stroke-linecap="round" />
+  <rect id="sidebar-toggle-icon" x="48" y="33" width="4" height="35" fill="#fff" />
+</svg>
