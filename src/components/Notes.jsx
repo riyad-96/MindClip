@@ -7,6 +7,7 @@ import { ArrowLeftSvg, LoaderSvg, NoteAddedSvg, NoteUpdatedSvg } from './Svgs';
 import EachNote from './EachNote';
 import { AnimatePresence, motion } from 'motion/react';
 import { format, formatDistanceToNow, isThisYear } from 'date-fns';
+import DeleteModal from './DeleteModal';
 
 function Notes() {
   const { user } = useUser();
@@ -158,7 +159,7 @@ function Notes() {
   //! Note delete program
   const [isDeleteModalShowing, setIsDeleteModalShowing] = useState(false);
 
-  async function deleteNote() {
+  async function deleteNotes() {
     setIsInteractivityDisabled(true);
     const noteRef = doc(db, 'users', user.uid, 'notes', currentNote);
     try {
@@ -351,41 +352,7 @@ function Notes() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {isDeleteModalShowing && (
-          <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-              transition: { duration: 0.2 },
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            onMouseDown={() => setIsDeleteModalShowing(false)}
-            className="fixed inset-0 z-10 flex items-center justify-center bg-black/30"
-          >
-            <div onMouseDown={(e) => e.stopPropagation()} className="w-full max-w-[400px] rounded-2xl bg-white shadow-xl">
-              <span className="block border-b-1 border-zinc-200 px-4 py-3 text-lg font-medium">Delete this note !</span>
-              <div className="space-y-6 px-4 py-4">
-                <span className="block leading-snug text-zinc-700">
-                  This action is irrevarsible. '<span className="font-medium break-words">{getCurrentNoteTitle() || 'Untitled'}</span>' will be deleted permanently.
-                </span>
-                <div className="flex justify-end gap-2">
-                  <button onClick={() => setIsDeleteModalShowing(false)} className="h-[35px] cursor-pointer rounded-full border border-zinc-300 bg-zinc-200 px-5 text-sm tracking-wide transition-colors hover:bg-zinc-300 active:translate-y-[1px]">
-                    Cancel
-                  </button>
-                  <button onClick={deleteNote} className="h-[35px] cursor-pointer rounded-full border border-red-600 bg-red-500 px-5 text-sm tracking-wide text-white transition-colors hover:border-red-400 hover:bg-red-400 active:translate-y-[1px]">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{isDeleteModalShowing && <DeleteModal texts={<span><span className="font-medium">'{getCurrentNoteTitle()}'</span> will be deleted permanently.</span>} func={{ deleteNotes, setIsDeleteModalShowing }} />}</AnimatePresence>
 
       <AnimatePresence>
         {isCurrentNoteEditing && (
