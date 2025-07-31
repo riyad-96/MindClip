@@ -16,7 +16,7 @@ function DeleteModal({ func, texts }) {
       transition={{
         duration: 0.2,
       }}
-      className="fixed inset-0 z-10 flex items-center justify-center bg-black/30"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-black/30 p-4"
       onMouseDown={() => setIsDeleteModalShowing(false)}
     >
       <div onMouseDown={(e) => e.stopPropagation()} className="w-full max-w-[400px] rounded-2xl bg-white shadow-xl">

@@ -71,3 +71,7 @@ body {
     opacity: 1;
   }
 }
+
+button {
+  user-select: none;
+}

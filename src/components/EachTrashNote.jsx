@@ -20,7 +20,7 @@ function EachTrashNote({ note, func }) {
         opacity: 1,
         transition: { duration: 0.5 },
       }}
-      className={`group relative grid max-w-[810px] grid-rows-[auto_1fr] gap-2 rounded-lg border border-zinc-200 p-4 transition-[box-shadow,outline-color] duration-[150ms,300ms] select-none hover:text-zinc-950 hover:shadow-md ${isSelected ? 'text-zinc-950 outline-2 outline-zinc-500' : 'text-zinc-700 outline-2 outline-transparent'}`}
+      className={`group relative grid max-w-[810px] grid-rows-[auto_1fr] gap-2 rounded-lg border border-zinc-200 p-4 transition-[box-shadow,outline-color] duration-[150ms,200ms] select-none hover:text-zinc-950 hover:shadow-md ${isSelected ? 'text-zinc-950 outline-2 outline-zinc-500' : 'text-zinc-700 outline-2 outline-transparent'}`}
     >
       <span className="line-clamp-1 text-lg leading-tight font-medium">{title}</span>
       <div className="line-clamp-4 min-h-[50px] leading-snug whitespace-pre-wrap break-words">{text}</div>
@@ -41,7 +41,7 @@ function EachTrashNote({ note, func }) {
             e.preventDefault();
           }
         }}
-        className={`absolute inset-0 z-1 cursor-pointer ${isSelected ? 'bg-black/5 active:bg-black/10' : 'active:bg-white/30'}`}
+        className={`absolute inset-0 z-1 cursor-pointer ${isSelected ? 'bg-black/5 [@media(pointer:fine)]:active:bg-black/10' : '[@media(pointer:fine)]:active:bg-white/30'}`}
       ></span>
       <button onClick={() => selectNotes(id)} className={`absolute top-0 left-0 z-2 grid size-[20px] -translate-1/3 cursor-pointer place-items-center transition-opacity duration-150 group-hover:opacity-100 ${isSelected ? 'opacity-100' : 'opacity-0'}`}>
         <CheckBoxSvg className="relative z-2" width="20" height="20" />

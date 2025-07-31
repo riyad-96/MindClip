@@ -30,7 +30,7 @@ function PreviewModal({ func, note }) {
         </div>
         <span className="text-zinc-600 text-sm">Trashed at {trashedAtDate}</span>
 
-        <button onClick={() => setIsPreviewModalShowing(false)} className="absolute right-2 [@media(pointer:fine)]:opacity-70 hover:opacity-100 transition-opacity top-2 z-5 grid place-items-center cursor-pointer">
+        <button onClick={() => setIsPreviewModalShowing(false)} className="absolute right-2 [@media(pointer:fine)]:opacity-70 hover:opacity-100 active:translate-y-[1px] transition-opacity top-2 z-5 grid place-items-center cursor-pointer">
           <CloseCircleSvg width="24" height="24" />
           <span className="absolute -inset-2 [@media(pointer:fine)]:hidden"></span>
         </button>
