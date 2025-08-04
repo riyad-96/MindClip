@@ -1,10 +1,60 @@
 import { format, formatDistanceToNow, isThisYear } from 'date-fns';
-import { motion } from 'motion/react';
-import { ArrowLeftSvg, LoaderSvg, NoteAddedSvg, NoteUpdatedSvg } from './Svgs';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowLeftSvg, CloudDoneSvg, LoaderSvg, NoteAddedSvg, NoteUpdatedSvg } from './Svgs';
+import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { db } from '../config/firebase';
+import { useUser } from '../contexts/UserContextProvider';
+import { useEffect, useRef, useState } from 'react';
 
 function EditSpace({ func, state }) {
-  const { currentEditingNote, isCurrentEditingNoteUpdating } = state;
-  const { setCurrentEditingNote, setIsCurrentNoteEditing, setIsCurrentEditingNoteUpdating, fetchUserNotes, updateEditedNote } = func;
+  const { user } = useUser();
+
+  const { currentEditingNote, isCurrentNoteEditing } = state;
+  const { setCurrentEditingNote, setIsCurrentNoteEditing, fetchUserNotes } = func;
+
+  const [isCurrentEditingNoteUpdating, setIsCurrentEditingNoteUpdating] = useState(false);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const updateInterval = setInterval(async () => {
+      setTick((prev) => prev + 1);
+    }, 3000);
+
+    return () => clearInterval(updateInterval);
+  }, [isCurrentNoteEditing, tick]);
+
+  async function updateNote() {
+    const docRef = doc(db, 'users', user.uid, 'notes', currentEditingNote.id);
+
+    try {
+      await updateDoc(docRef, {
+        title: currentEditingNote.title,
+        text: currentEditingNote.text,
+        updatedAt: serverTimestamp(),
+      });
+      const updatedFetchedNote = await getDoc(docRef);
+      const noteObj = {
+        ...updatedFetchedNote.data(),
+      };
+
+      setCurrentEditingNote((prev) => ({ ...prev, updatedDate: noteObj.updatedAt.toDate() }));
+      setTick((prev) => prev + 1);
+      setIsCurrentEditingNoteUpdating(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const debounceTimer = useRef(null);
+
+  function debounceNoteUpdate(field, value) {
+    setCurrentEditingNote((prev) => ({ ...prev, [field]: value }));
+    setIsCurrentEditingNoteUpdating(true);
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+    debounceTimer.current = setTimeout(updateNote, 500);
+  }
 
   return (
     <motion.div
@@ -47,18 +97,57 @@ function EditSpace({ func, state }) {
             </span>
           </div>
 
-          <div className="flex gap-4">
-            <button onClick={updateEditedNote} className="cursor-pointer active:opacity-50">
-              update
-            </button>
-            <button className="cursor-pointer active:opacity-50">refresh</button>
+          <div className="grid">
+            <AnimatePresence>
+              {isCurrentEditingNoteUpdating ? (
+                <motion.span
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 0.7,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="grid animate-spin cursor-pointer place-items-center opacity-70"
+                >
+                  <LoaderSvg width="30" height="30" />
+                </motion.span>
+              ) : (
+                <motion.button
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 0.7,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="grid cursor-pointer place-items-center opacity-70"
+                  onClick={() => {
+                    setIsCurrentEditingNoteUpdating(true);
+                    updateNote();
+                  }}
+                >
+                  <CloudDoneSvg width="30" height="30" />
+                </motion.button>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
 
       <div className="grid grid-rows-[auto_1fr] rounded-lg border-1 border-zinc-300">
-        <input type="text" value={currentEditingNote.title} onChange={(e) => setCurrentEditingNote((prev) => ({ ...prev, title: e.target.value }))} className="px-3 pt-2 text-lg font-medium outline-none" />
-        <textarea value={currentEditingNote.text} onChange={(e) => setCurrentEditingNote((prev) => ({ ...prev, text: e.target.value }))} className="resize-none px-3 pt-1 pb-8 outline-none"></textarea>
+        <input type="text" value={currentEditingNote.title} onChange={(e) => debounceNoteUpdate('title', e.target.value)} className="px-3 pt-2 text-lg font-medium outline-none" />
+        <textarea value={currentEditingNote.text} onChange={(e) => debounceNoteUpdate('text', e.target.value)} className="resize-none px-3 pt-1 pb-8 outline-none"></textarea>
       </div>
     </motion.div>
   );

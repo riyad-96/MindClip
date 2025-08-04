@@ -176,43 +176,11 @@ function Notes() {
   //! editing note in editing space
   const [isCurrentNoteEditing, setIsCurrentNoteEditing] = useState(false);
   const [currentEditingNote, setCurrentEditingNote] = useState(null);
-  const [isCurrentEditingNoteUpdating, setIsCurrentEditingNoteUpdating] = useState(false);
-  const [tick, setTick] = useState(0);
 
   function assignCurrentEditingNote({ id, title, text, createdDate, updatedDate }) {
     setCurrentEditingNote({ id, title, text, createdDate, updatedDate });
     setIsCurrentNoteEditing(true);
   }
-
-  async function updateEditedNote() {
-    setIsCurrentEditingNoteUpdating(true);
-    const docRef = doc(db, 'users', user.uid, 'notes', currentEditingNote.id);
-
-    try {
-      await updateDoc(docRef, {
-        title: currentEditingNote.title,
-        text: currentEditingNote.text,
-        updatedAt: serverTimestamp(),
-      });
-      const updatedFetchedNote = await getDoc(docRef);
-      const noteObj = {
-        ...updatedFetchedNote.data(),
-      };
-      setCurrentEditingNote((prev) => ({ ...prev, updatedDate: noteObj.updatedAt.toDate() }));
-      setIsCurrentEditingNoteUpdating(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    if (!isCurrentNoteEditing) return;
-    const updateInterval = setInterval(async () => {
-      setTick((prev) => prev + 1);
-      console.log(tick);
-    }, 3000);
-    return () => clearInterval(updateInterval);
-  }, [isCurrentNoteEditing, tick]);
 
   return (
     <div className="relative overflow-hidden">
@@ -365,7 +333,7 @@ function Notes() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>{isCurrentNoteEditing && <EditSpace state={{ currentEditingNote, isCurrentEditingNoteUpdating }} func={{ setCurrentEditingNote, setIsCurrentNoteEditing, setIsCurrentEditingNoteUpdating, fetchUserNotes, updateEditedNote }} />}</AnimatePresence>
+      <AnimatePresence>{isCurrentNoteEditing && <EditSpace state={{ currentEditingNote, isCurrentNoteEditing }} func={{ setCurrentEditingNote, setIsCurrentNoteEditing, fetchUserNotes }} />}</AnimatePresence>
     </div>
   );
 }
