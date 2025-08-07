@@ -25,7 +25,7 @@ function EachNote({ note, func }) {
       exit={{
         opacity: 0,
       }}
-      className="group relative grid max-w-[810px] grid-rows-[23px_1fr] gap-2 rounded-lg border border-zinc-200 p-4 text-zinc-700 overflow-hidden transition-[box-shadow,color,background-color] select-none hover:text-zinc-950 hover:shadow-md hover:shadow-zinc-200 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-50 dark:hover:shadow-zinc-800"
+      className="group relative grid max-w-[810px] grid-rows-[23px_1fr] gap-2 overflow-hidden rounded-lg border border-zinc-200 p-4 text-zinc-700 transition-[box-shadow,color,background-color] select-none hover:text-zinc-950 hover:shadow-md hover:shadow-zinc-200 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-50 dark:hover:shadow-zinc-800"
     >
       <span className="line-clamp-1 text-lg leading-tight font-medium">{title}</span>
       <div className="line-clamp-5 min-h-[50px] leading-snug whitespace-pre-wrap">{text}</div>

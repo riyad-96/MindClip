@@ -23,7 +23,7 @@ function Home() {
   return (
     <div className="min-h-screen">
       <div className="mx-auto flex h-screen max-w-[1930px]">
-        <div onClick={() => setIsSidebarOpen(false)} className={`fixed inset-0 z-9 bg-black/30 transition-opacity duration-400 md:hidden dark:bg-white/30 [@media(pointer:fine)]:backdrop-blur-[3px] ${isSidebarOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}></div>
+        <div onClick={() => setIsSidebarOpen(false)} className={`fixed inset-0 z-9 bg-black/30 transition-opacity duration-400 md:hidden dark:bg-white/10 [@media(pointer:fine)]:backdrop-blur-[3px] ${isSidebarOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}></div>
         <aside className={`h-full w-[250px] border-x-1 border-zinc-200 bg-zinc-50 transition-[translate] duration-400 max-md:fixed max-md:top-0 max-md:left-0 max-md:z-10 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white ${isSidebarOpen ? 'translate-x-0' : 'max-md:translate-x-[-100%]'}`}>
           <div className="flex items-center justify-between p-3">
             <span onClick={() => window.location.reload()} className="cursor-pointer text-[length:clamp(1.325rem,1.1121rem+0.7921vw,1.825rem)] font-medium select-none">

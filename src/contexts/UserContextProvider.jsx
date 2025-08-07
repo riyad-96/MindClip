@@ -1,15 +1,20 @@
 import { createContext, useContext, useState } from 'react';
 const userContext = createContext();
 
-function UserContextProvider({children}) {
+function UserContextProvider({ children }) {
   const [user, setUser] = useState({});
+
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
-  return (
-    <userContext.Provider value={{user, setUser, isTouchDevice}}>
-      {children}
-    </userContext.Provider>
-  )
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    const theme = localStorage.getItem('theme');
+    if (theme && theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+    return theme && theme === 'dark' ? true : false;
+  });
+
+  return <userContext.Provider value={{ user, setUser, isTouchDevice, isDarkTheme, setIsDarkTheme }}>{children}</userContext.Provider>;
 }
 
 export default UserContextProvider;

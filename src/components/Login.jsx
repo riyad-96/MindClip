@@ -104,7 +104,7 @@ function Login() {
 
   return (
     <div>
-      {tryingToLogin && <div className="fixed inset-0 z-999 cursor-not-allowed bg-white/50"></div>}
+      {tryingToLogin && <div className="fixed inset-0 z-999 cursor-not-allowed bg-white/50 dark:bg-white/10"></div>}
       <h2 className="mb-8 text-center text-[1.625rem] font-medium">{visited ? 'Welcome back' : 'Welcome'}</h2>
 
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
@@ -145,13 +145,13 @@ function Login() {
             <span>{passError}</span>
           </span>
 
-          <button onClick={() => setIsPasswordVisible((prev) => !prev)} className={`absolute top-1/2 right-2 grid size-[35px] translate-y-[-50%] cursor-pointer place-items-center rounded-full text-zinc-500 transition-[opacity_background-color] hover:bg-zinc-200 hover:text-zinc-800 ${loginPass.trim() ? '' : 'pointer-events-none opacity-0'}`}>
+          <button onClick={() => setIsPasswordVisible((prev) => !prev)} className={`absolute top-[1.5rem] right-2 grid size-[35px] translate-y-[-50%] cursor-pointer place-items-center rounded-full text-zinc-500 transition-[opacity_background-color] hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-zinc-800 dark:hover:text-zinc-200 ${loginPass.trim() ? '' : 'pointer-events-none opacity-0'}`}>
             {isPasswordVisible ? <OpenEyeSvg /> : <CloseEyeSvg />}
             <span className="absolute -inset-2 rounded-full [@media(pointer:fine)]:hidden"></span>
           </button>
         </div>
 
-        <button onClick={handleLoginBtn} className="grid h-[50px] w-full cursor-pointer place-items-center rounded-full bg-zinc-950 text-sm font-medium tracking-wide text-white hover:bg-zinc-800 active:bg-zinc-700">
+        <button onClick={handleLoginBtn} className="grid h-[50px] w-full cursor-pointer place-items-center rounded-full bg-zinc-950 dark:bg-zinc-50 text-sm font-medium tracking-wide text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 active:bg-zinc-700 dark:active:bg-zinc-300">
           {tryingToLogin ? <LoaderSvg className="animate-spin" width="24" height="24" /> : <span>Continue</span>}
         </button>
       </form>
