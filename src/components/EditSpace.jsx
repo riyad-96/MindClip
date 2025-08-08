@@ -99,7 +99,7 @@ function EditSpace({ func, state }) {
         translateX: '100%',
         transition: { duration: 0.3 },
       }}
-      className="absolute inset-0 top-0 left-0 z-5 grid grid-rows-[auto_1fr] transition-colors duration-150 rounded-lg bg-zinc-50 dark:bg-zinc-900"
+      className="absolute inset-0 top-0 left-0 z-5 grid grid-rows-[auto_1fr] rounded-lg bg-zinc-50 dark:bg-zinc-900"
     >
       <div className="flex items-center gap-4">
         <button
@@ -110,7 +110,7 @@ function EditSpace({ func, state }) {
             setIsCurrentEditingNoteUpdating(false);
             fetchUserNotes();
           }}
-          className="relative grid size-[25px] cursor-pointer place-items-center rounded-sm transition-colors duration-150 bg-zinc-200 active:translate-y-[1px] dark:bg-zinc-800 dark:hover:bg-zinc-700"
+          className="relative grid size-[25px] cursor-pointer place-items-center rounded-sm bg-zinc-200 active:translate-y-[1px] dark:bg-zinc-800 dark:hover:bg-zinc-700"
         >
           <ArrowLeftSvg width="22" height="22" />
           <span className="absolute -inset-2 [@media(pointer:fine)]:hidden"></span>
@@ -144,7 +144,7 @@ function EditSpace({ func, state }) {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="grid animate-spin place-items-center opacity-70"
+                  className="grid animate-spin cursor-pointer place-items-center opacity-70"
                 >
                   <LoaderSvg width="30" height="30" />
                 </motion.span>
@@ -162,7 +162,7 @@ function EditSpace({ func, state }) {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="grid place-items-center opacity-70"
+                  className="grid cursor-pointer place-items-center opacity-70"
                 >
                   <CloudDoneSvg width="30" height="30" />
                 </motion.button>
@@ -173,8 +173,8 @@ function EditSpace({ func, state }) {
       </div>
 
       <div className="grid grid-rows-[auto_1fr] rounded-lg border-1 border-zinc-300 transition-colors dark:border-zinc-800 dark:focus-within:border-zinc-600">
-        <input placeholder="Title" type="text" value={localTitle} onChange={handleTitleChange} className="px-3 pt-2 text-lg font-medium outline-none" />
-        <textarea placeholder="Take a note" value={localText} onChange={handleTextChange} className="resize-none px-3 pt-1 pb-8 outline-none"></textarea>
+        <input placeholder="Title" type="text" value={localTitle} onChange={handleTitleChange} className="w-full px-3 pt-2 text-lg font-medium outline-none" />
+        <textarea placeholder="Take a note" value={localText} onChange={handleTextChange} className="w-full resize-none px-3 pt-1 pb-8 outline-none"></textarea>
       </div>
     </motion.div>
   );

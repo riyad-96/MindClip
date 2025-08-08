@@ -290,7 +290,7 @@ function Notes() {
                   onChange={(e) => setQuickNoteTitle(e.target.value)}
                   type="text"
                   placeholder="Title"
-                  className="px-4 py-2 text-lg font-medium outline-none"
+                  className="px-4 py-2 text-lg font-medium outline-none w-full"
                 />
                 <textarea
                   onKeyDown={(e) => {
@@ -303,7 +303,7 @@ function Notes() {
                   value={quickNoteBody}
                   onChange={(e) => setQuickNoteBody(e.target.value)}
                   placeholder="Take a note..."
-                  className="max-h-[calc(100vh_-_300px)] min-h-[200px] px-4 py-2 outline-none"
+                  className="max-h-[calc(100vh_-_300px)] min-h-[200px] px-4 py-2 outline-none w-full"
                 ></textarea>
               </div>
               <div className="flex justify-end gap-2">

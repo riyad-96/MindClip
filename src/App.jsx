@@ -33,13 +33,16 @@ function App() {
 
     if (isLoggedIn) {
       navigate('/home/notes', { replace: true });
+      setTimeout(() => {
+        window.history.pushState({ fakeState: true }, '');
+      }, 1000);
     } else {
       navigate('/auth/log-in', { replace: true });
     }
   }, [isLoaded, isLoggedIn, navigate]);
 
   return (
-    <div className="overflow-hidden transition-colors bg-zinc-50 dark:bg-zinc-900 dark:text-white font-[Poppins]">
+    <div className="overflow-hidden bg-zinc-50 font-[Poppins] transition-colors dark:bg-zinc-900 dark:text-white">
       <AnimatePresence mode="wait">
         {!isLoaded && (
           <motion.div
