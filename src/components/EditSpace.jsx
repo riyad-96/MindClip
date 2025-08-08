@@ -99,7 +99,7 @@ function EditSpace({ func, state }) {
         translateX: '100%',
         transition: { duration: 0.3 },
       }}
-      className="absolute inset-0 top-0 left-0 z-5 grid grid-rows-[auto_1fr] rounded-lg bg-zinc-50 dark:bg-zinc-900"
+      className="absolute inset-0 top-0 left-0 z-5 grid grid-rows-[auto_1fr] transition-colors duration-150 rounded-lg bg-zinc-50 dark:bg-zinc-900"
     >
       <div className="flex items-center gap-4">
         <button
@@ -110,7 +110,7 @@ function EditSpace({ func, state }) {
             setIsCurrentEditingNoteUpdating(false);
             fetchUserNotes();
           }}
-          className="relative grid size-[25px] cursor-pointer place-items-center rounded-sm bg-zinc-200 active:translate-y-[1px] dark:bg-zinc-800 dark:hover:bg-zinc-700"
+          className="relative grid size-[25px] cursor-pointer place-items-center rounded-sm transition-colors duration-150 bg-zinc-200 active:translate-y-[1px] dark:bg-zinc-800 dark:hover:bg-zinc-700"
         >
           <ArrowLeftSvg width="22" height="22" />
           <span className="absolute -inset-2 [@media(pointer:fine)]:hidden"></span>
