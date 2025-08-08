@@ -144,7 +144,7 @@ function EditSpace({ func, state }) {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="grid animate-spin cursor-pointer place-items-center opacity-70"
+                  className="grid animate-spin place-items-center opacity-70"
                 >
                   <LoaderSvg width="30" height="30" />
                 </motion.span>
@@ -162,10 +162,7 @@ function EditSpace({ func, state }) {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="grid cursor-pointer place-items-center opacity-70"
-                  onClick={() => {
-                    setIsCurrentEditingNoteUpdating(true);
-                  }}
+                  className="grid place-items-center opacity-70"
                 >
                   <CloudDoneSvg width="30" height="30" />
                 </motion.button>

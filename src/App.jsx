@@ -39,7 +39,7 @@ function App() {
   }, [isLoaded, isLoggedIn, navigate]);
 
   return (
-    <div className="overflow-hidden bg-zinc-50 dark:bg-zinc-900 dark:text-white font-[Poppins]">
+    <div className="overflow-hidden transition-colors bg-zinc-50 dark:bg-zinc-900 dark:text-white font-[Poppins]">
       <AnimatePresence mode="wait">
         {!isLoaded && (
           <motion.div

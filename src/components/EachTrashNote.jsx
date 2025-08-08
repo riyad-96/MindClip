@@ -20,7 +20,7 @@ function EachTrashNote({ note, func }) {
         opacity: 1,
         transition: { duration: 0.5 },
       }}
-      className={`group relative grid max-w-[810px] grid-rows-[auto_1fr] gap-2 rounded-lg border border-zinc-200 p-4 transition-[box-shadow,outline-color] duration-[150ms,200ms] select-none hover:text-zinc-950 hover:shadow-md dark:border-zinc-800 dark:hover:text-zinc-50 ${isSelected ? 'text-zinc-950 outline-2 outline-zinc-500 dark:text-zinc-50 dark:outline-zinc-400' : 'text-zinc-700 outline-2 outline-transparent dark:text-zinc-300'}`}
+      className={`group relative grid max-w-[810px] grid-rows-[auto_1fr] gap-2 rounded-lg border border-zinc-200 p-4 transition-colors duration-[150ms,200ms] select-none hover:text-zinc-950 hover:shadow-md dark:border-zinc-800 dark:hover:text-zinc-50 ${isSelected ? 'text-zinc-950 outline-2 outline-zinc-500 dark:text-zinc-50 dark:outline-zinc-400' : 'text-zinc-700 outline-2 outline-transparent dark:text-zinc-300'}`}
     >
       <span className="line-clamp-1 text-lg leading-tight font-medium">{title}</span>
       <div className="line-clamp-4 min-h-[50px] leading-snug break-words whitespace-pre-wrap">{text}</div>

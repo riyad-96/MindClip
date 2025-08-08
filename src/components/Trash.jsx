@@ -130,7 +130,7 @@ function Trash() {
         </div>
       </div>
 
-      <div className="h-[calc(100vh_-_120px)] overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-800 p-2">
+      <div className="h-[calc(100vh_-_120px)] overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-800 transition-colors duration- p-2">
         {isTrashLoading ? (
           <div className="flex h-[200px] items-center justify-center">
             <LoaderSvg className="animate-spin" width="30" height="30" />

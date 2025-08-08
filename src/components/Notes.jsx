@@ -194,7 +194,7 @@ function Notes() {
         </div>
       </div>
 
-      <div className="h-[calc(100vh_-_120px)] overflow-y-auto rounded-lg border border-zinc-200 p-2 dark:border-zinc-800">
+      <div className="h-[calc(100vh_-_120px)] overflow-y-auto rounded-lg border border-zinc-200 p-2 dark:border-zinc-800 transition-[border-color] duration-150">
         {noteIsLoading ? (
           <div className="flex h-[200px] items-center justify-center">
             <LoaderSvg className="animate-spin" width="30" height="30" />
