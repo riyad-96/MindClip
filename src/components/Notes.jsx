@@ -294,6 +294,7 @@ function Notes() {
                   className="w-full px-4 py-2 text-lg font-medium outline-none"
                 />
                 <textarea
+                  spellCheck="false"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && e.ctrlKey) {
                       e.preventDefault();
