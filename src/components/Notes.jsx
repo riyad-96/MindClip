@@ -274,7 +274,7 @@ function Notes() {
             exit={{
               opacity: 0,
             }}
-            className="fixed inset-0 z-10 flex items-center justify-center bg-black/30 p-4 dark:bg-white/10"
+            className="fixed inset-0 z-10 flex items-center justify-center bg-black/30 p-4 dark:bg-white/10 [@media(pointer:fine)]:backdrop-blur-[3px]"
           >
             <div onMouseDown={(e) => e.stopPropagation()} className="w-full max-w-[600px] space-y-4 rounded-xl bg-zinc-100 p-5 shadow-xl dark:bg-zinc-900">
               <div className="grid rounded-lg border border-zinc-200 transition-colors focus-within:border-zinc-300 dark:border-zinc-800 dark:focus-within:border-zinc-600">
