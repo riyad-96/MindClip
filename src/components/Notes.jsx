@@ -8,6 +8,7 @@ import EachNote from './EachNote';
 import { AnimatePresence, motion } from 'motion/react';
 import DeleteModal from './DeleteModal';
 import EditSpace from './EditSpace';
+import { matchPath, matchRoutes, Outlet, useLocation } from 'react-router-dom';
 
 function Notes() {
   const { user } = useUser();
@@ -174,13 +175,8 @@ function Notes() {
   }
 
   //! editing note in editing space
-  const [isCurrentNoteEditing, setIsCurrentNoteEditing] = useState(false);
-  const [currentEditingNote, setCurrentEditingNote] = useState(null);
-
-  function assignCurrentEditingNote({ id, title, text, createdDate, updatedDate }) {
-    setCurrentEditingNote({ id, title, text, createdDate, updatedDate });
-    setIsCurrentNoteEditing(true);
-  }
+  const location = useLocation();
+  const isNoteRoute = matchPath('/home/notes/:noteId', location.pathname);
 
   return (
     <div className="relative overflow-hidden">
@@ -194,7 +190,7 @@ function Notes() {
         </div>
       </div>
 
-      <div className="h-[calc(100vh_-_120px)] overflow-y-auto rounded-lg border border-zinc-200 p-2 dark:border-zinc-800 transition-[border-color] duration-150">
+      <div className="h-[calc(100vh_-_120px)] overflow-y-auto rounded-lg border border-zinc-200 p-2 transition-[border-color] duration-150 dark:border-zinc-800">
         {noteIsLoading ? (
           <div className="flex h-[200px] items-center justify-center">
             <LoaderSvg className="animate-spin" width="30" height="30" />
@@ -209,7 +205,7 @@ function Notes() {
         ) : (
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
             {notes.map((note) => (
-              <EachNote key={note.id} note={note} func={{ openContextMenu, assignCurrentEditingNote }} />
+              <EachNote key={note.id} note={note} func={{ openContextMenu }} />
             ))}
           </div>
         )}
@@ -276,7 +272,7 @@ function Notes() {
             className="fixed inset-0 z-10 flex items-center justify-center bg-black/30 p-4 dark:bg-white/10"
           >
             <div onMouseDown={(e) => e.stopPropagation()} className="w-full max-w-[600px] space-y-4 rounded-xl bg-zinc-100 p-5 shadow-xl dark:bg-zinc-900">
-              <div className="grid rounded-lg border border-zinc-200 dark:border-zinc-800 transition-colors focus-within:border-zinc-300 dark:focus-within:border-zinc-600">
+              <div className="grid rounded-lg border border-zinc-200 transition-colors focus-within:border-zinc-300 dark:border-zinc-800 dark:focus-within:border-zinc-600">
                 <input
                   maxLength="100"
                   onKeyDown={(e) => {
@@ -290,7 +286,7 @@ function Notes() {
                   onChange={(e) => setQuickNoteTitle(e.target.value)}
                   type="text"
                   placeholder="Title"
-                  className="px-4 py-2 text-lg font-medium outline-none w-full"
+                  className="w-full px-4 py-2 text-lg font-medium outline-none"
                 />
                 <textarea
                   onKeyDown={(e) => {
@@ -303,7 +299,7 @@ function Notes() {
                   value={quickNoteBody}
                   onChange={(e) => setQuickNoteBody(e.target.value)}
                   placeholder="Take a note..."
-                  className="max-h-[calc(100vh_-_300px)] min-h-[200px] px-4 py-2 outline-none w-full"
+                  className="max-h-[calc(100vh_-_300px)] min-h-[200px] w-full px-4 py-2 outline-none"
                 ></textarea>
               </div>
               <div className="flex justify-end gap-2">
@@ -332,7 +328,7 @@ function Notes() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>{isCurrentNoteEditing && <EditSpace state={{ currentEditingNote, isCurrentNoteEditing }} func={{ setCurrentEditingNote, setIsCurrentNoteEditing, fetchUserNotes }} />}</AnimatePresence>
+      <Outlet />
     </div>
   );
 }

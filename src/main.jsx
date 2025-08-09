@@ -12,6 +12,7 @@ import Signup from './components/Signup.jsx';
 import Notes from './components/Notes.jsx';
 import Trash from './components/Trash.jsx';
 import ContextProviders from './contexts/ContextProviders.jsx';
+import EditSpace from './components/EditSpace.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,12 @@ const router = createBrowserRouter([
           {
             path: 'notes',
             element: <Notes />,
+            children: [
+              {
+                path: ':noteId',
+                element: <EditSpace />,
+              },
+            ],
           },
           {
             path: 'trash',

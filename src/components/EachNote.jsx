@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { format, isSameYear } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 function EachNote({ note, func }) {
   const { id, title, text, createdAt, updatedAt } = note;
@@ -12,6 +13,8 @@ function EachNote({ note, func }) {
   const createdDate = isSameYear(times.creation, new Date()) ? format(times.creation, 'dd MMM') : format(times.creation, 'dd MMM yy');
   const createdTime = format(times.creation, 'h:mm a');
   const updatedDate = times.updated;
+
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -31,7 +34,7 @@ function EachNote({ note, func }) {
       <div className="line-clamp-5 min-h-[50px] leading-snug whitespace-pre-wrap">{text}</div>
 
       <span
-        onClick={() => assignCurrentEditingNote({ id, title, text, createdDate: `${createdTime}, ${createdDate}`, updatedDate })}
+        onClick={() => navigate(`/home/notes/${id}`)}
         onContextMenu={(e) => {
           e.preventDefault();
           const minRight = window.innerWidth - e.clientX;

@@ -33,9 +33,6 @@ function App() {
 
     if (isLoggedIn) {
       navigate('/home/notes', { replace: true });
-      setTimeout(() => {
-        window.history.pushState({ fakeState: true }, '');
-      }, 1000);
     } else {
       navigate('/auth/log-in', { replace: true });
     }
