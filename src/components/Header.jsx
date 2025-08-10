@@ -56,11 +56,11 @@ function Header({ func }) {
     }
 
     window.addEventListener('resize', handleResize);
-    document.addEventListener('click', handleClickOutsideProfile);
+    document.addEventListener('mousedown', handleClickOutsideProfile);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      document.removeEventListener('click', handleClickOutsideProfile);
+      document.removeEventListener('mousedown', handleClickOutsideProfile);
     };
   }, [profileModalCoord]);
 
