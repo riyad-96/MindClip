@@ -57,11 +57,7 @@ function Header({ func }) {
 
     window.addEventListener('resize', handleResize);
     document.addEventListener('mousedown', handleClickOutsideProfile);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.removeEventListener('mousedown', handleClickOutsideProfile);
-    };
+    document.addEventListener('touchstart', handleClickOutsideProfile);
   }, [profileModalCoord]);
 
   //! Load profile data
