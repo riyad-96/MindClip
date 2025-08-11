@@ -123,7 +123,7 @@ function EditSpace() {
               <NoteAddedSvg width="14" height="14" />
               <span>Created: {createdDate}</span>
             </span>
-            <span title={`Updated at ${format(times.updated, 'h:mm a')}, ${isThisYear(times.updated, new Date()) ? format(times.updated, 'dd MMM') : format(times.updated, 'dd MMM yy')}`} className="flex cursor-default items-center gap-1 text-xs">
+            <span key={tick} title={`Updated at ${format(times.updated, 'h:mm a')}, ${isThisYear(times.updated, new Date()) ? format(times.updated, 'dd MMM') : format(times.updated, 'dd MMM yy')}`} className="flex cursor-default items-center gap-1 text-xs">
               {isCurrentEditingNoteUpdating ? <LoaderSvg className="animate-spin" width="14" height="14" /> : <NoteUpdatedSvg width="14" height="14" />}
               <span>Updated: {formatDistanceToNow(times.updated, { addSuffix: true })}</span>
             </span>
