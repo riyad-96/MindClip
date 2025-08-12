@@ -120,3 +120,38 @@ label,
 img {
   user-select: none;
 }
+
+.pulse-effect {
+  animation: pulse-effect 1.3s infinite;
+}
+
+.outline-effect {
+  animation: outline-effect 1.3s infinite;
+}
+
+@keyframes pulse-effect {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes outline-effect {
+  0% {
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+  }
+  20% {
+    outline: 2px solid hsl(0, 0%, 50%);
+    outline-offset: 2px;
+  }
+  100% {
+    outline: 1px solid transparent;
+    outline-offset: 6px;
+  }
+}

@@ -163,9 +163,54 @@ function Header({ func }) {
           }}
           className={`profile-container relative size-[30px] cursor-pointer rounded-full outline-2 outline-offset-2 outline-transparent transition-[color,background-color,scale,outline-color] duration-[150ms,150ms,350ms,300ms] [@media(pointer:fine)]:hover:scale-[0.9] [@media(pointer:fine)]:hover:outline-zinc-400`}
         >
+          {!isProfileLoaded && <div className="pulse-effect absolute inset-0 z-5 rounded-full bg-zinc-400"></div>}
+          {!isProfileLoaded && <div className="outline-effect absolute inset-0 z-5 rounded-full bg-transparent"></div>}
           <div className="relative size-full overflow-hidden rounded-full">
-            {profileData?.imgUrl ? <img className="size-full object-cover object-center" src={profileData.imgUrl} alt="Profile picture" /> : <ProfileSvg className="size-full fill-zinc-800 transition-colors duration-150 dark:fill-zinc-200" />}
-            {!isProfileLoaded && <span className="absolute inset-0 bg-zinc-400 animate-ping"></span>}
+            <AnimatePresence>
+              {profileData?.imgUrl && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    filter: 'blur(2px)',
+                  }}
+                  animate={{
+                    opacity: 1,
+                    filter: 'blur(0)',
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.3,
+                  }}
+                  className="size-full"
+                >
+                  <img src={profileData.imgUrl} alt="Profile picture" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+              {!profileData?.imgUrl && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="size-full"
+                >
+                  <ProfileSvg className="size-full fill-zinc-800 transition-colors duration-150 dark:fill-zinc-200" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
