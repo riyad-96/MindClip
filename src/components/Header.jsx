@@ -92,7 +92,7 @@ function Header({ func }) {
     }
 
     getProfileData();
-  }, [user.uid, setIsProfileLoaded, setProfileData]);
+  }, []);
 
   //! Profile editing
   const [isProfileEditing, setIsProfileEditing] = useState(false);
@@ -103,7 +103,7 @@ function Header({ func }) {
         <button onClick={openSidebar} className="cursor-pointer active:scale-95 md:hidden">
           <ZeroSvg className="sidebar-svg" width="30" height="30" />
         </button>
-        <span className="font-medium max-md:text-[length:clamp(1.325rem,1.1121rem+0.7921vw,1.825rem)]">ZeroNote</span>
+        <span className="font-medium max-md:text-[length:clamp(1.325rem,1.1121rem+0.7921vw,1.825rem)]">KitzoNote</span>
       </div>
 
       <div className="flex items-center gap-4">

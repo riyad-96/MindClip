@@ -5,7 +5,7 @@ import { doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useUser, useNotes } from '../contexts/contexts';
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function EditSpace() {
   const { user } = useUser();
@@ -93,6 +93,8 @@ function EditSpace() {
     };
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <motion.div
       initial={{
@@ -109,7 +111,7 @@ function EditSpace() {
           onClick={() => {
             if (isCurrentEditingNoteUpdating) return;
             setIsCurrentEditingNoteUpdating(false);
-            window.history.back();
+            navigate(-1);
           }}
           className="relative grid size-[25px] cursor-pointer place-items-center rounded-sm bg-zinc-200 transition-colors duration-150 active:translate-y-[1px] dark:bg-zinc-800 dark:hover:bg-zinc-700"
         >

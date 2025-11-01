@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useHelper, useNotes, useUser } from '../contexts/contexts';
+import { useNotes, useUser } from '../contexts/contexts';
 import { CloseSvg, DeleteForeverSvg, LoaderSvg, RestoreFromTrashSvg, TrashSvg } from './Svgs';
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, orderBy, query, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import EachTrashNote from './EachTrashNote';
 import { motion, AnimatePresence } from 'motion/react';
@@ -9,9 +9,8 @@ import DeleteModal from './DeleteModal';
 import PreviewModal from './PreviewModal';
 
 function Trash() {
-  const { user } = useUser();
+  const { user, setIsActivityDisabled } = useUser();
   const { trashes, setTrashes } = useNotes();
-  const { isActivityDisabled, setIsActivityDisabled } = useHelper();
 
   const [isTrashLoading, setIsTrashLoading] = useState(true);
 

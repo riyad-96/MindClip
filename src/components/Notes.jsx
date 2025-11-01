@@ -1,49 +1,46 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useHelper, useNotes, useUser } from '../contexts/contexts';
-
+import { useEffect, useRef, useState } from 'react';
+import { useNotes, useUser } from '../contexts/contexts';
 import { db } from '../config/firebase';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore';
-import { LoaderSvg, AddNoteSvg, CloseSvg, RestoreFromTrashSvg, DeleteForeverSvg, TrashSvg } from './Svgs';
+import { collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore';
+import { LoaderSvg, AddNoteSvg, CloseSvg, DeleteForeverSvg, TrashSvg } from './Svgs';
 import EachNote from './EachNote';
 import { AnimatePresence, motion } from 'motion/react';
 import DeleteModal from './DeleteModal';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 function Notes() {
-  const { user } = useUser();
-  const { notes, setNotes, addNoteToDatabase } = useNotes();
+  const { user, setIsActivityDisabled } = useUser();
+  const { notes, setNotes, setNotesLoading, addNoteToDatabase } = useNotes();
   const [noteIsLoading, setNoteIsLoading] = useState(true);
-  const { setIsActivityDisabled } = useHelper();
 
   //! FetchNotes
-  const fetchUserNotes = useCallback(async () => {
-    const noteCollectionRef = collection(db, 'users', user.uid, 'notes');
-
-    try {
-      const notesQuery = query(noteCollectionRef, orderBy('createdAt', 'desc'));
-      const dbNote = await getDocs(notesQuery);
-
-      const notesArray = [];
-
-      dbNote.forEach((doc) => {
-        notesArray.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-
-      setNotes(notesArray);
-      setNoteIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [user.uid, setNotes]);
-
   useEffect(() => {
-    if (user.uid) {
-      fetchUserNotes();
-    }
-  }, [user.uid, fetchUserNotes]);
+    (async () => {
+      const noteCollectionRef = collection(db, 'users', user.uid, 'notes');
+
+      try {
+        const notesQuery = query(noteCollectionRef, orderBy('createdAt', 'desc'));
+        const dbNote = await getDocs(notesQuery);
+
+        const notesArray = [];
+
+        dbNote.forEach((doc) => {
+          notesArray.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+
+        setNotes(notesArray);
+        setNoteIsLoading(false);
+      } catch (error) {
+        setNoteIsLoading(false);
+        console.error(error);
+      } finally {
+        setNotesLoading(false);
+      }
+    })();
+  }, []);
 
   //! Modal and custom context menu
   const [noteModalOpen, setNoteModalOpen] = useState(false);

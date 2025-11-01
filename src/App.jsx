@@ -1,47 +1,15 @@
-import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './config/firebase';
-import { useIsLoggedIn, useUser } from './contexts/contexts';
+import { Outlet } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { LoaderSvg } from './components/Svgs';
+import { useUser } from './contexts/UserContextProvider';
 
 function App() {
-  const { isLoggedIn, setIsLoggedIn, isLoaded, setIsLoaded } = useIsLoggedIn();
-
-  const navigate = useNavigate();
-  const { setUser } = useUser();
-
-  useEffect(() => {
-    const subscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        setUser({});
-        setIsLoggedIn(false);
-        setIsLoaded(true);
-        return;
-      }
-      setUser(currentUser);
-      setIsLoggedIn(true);
-      setIsLoaded(true);
-    });
-
-    return () => subscribe();
-  }, [setIsLoggedIn, setUser, setIsLoaded, navigate]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-
-    if (isLoggedIn) {
-      navigate('/home/notes', { replace: true });
-    } else {
-      navigate('/auth/log-in', { replace: true });
-    }
-  }, [isLoaded, isLoggedIn, navigate]);
+  const { appLoaded } = useUser();
 
   return (
     <div className="overflow-hidden bg-zinc-50 font-[Poppins] transition-colors dark:bg-zinc-900 dark:text-white">
       <AnimatePresence mode="wait">
-        {!isLoaded && (
+        {!appLoaded && (
           <motion.div
             animate={{
               opacity: 1,
@@ -59,7 +27,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      {isLoaded && <Outlet />}
+      {appLoaded && <Outlet />}
     </div>
   );
 }

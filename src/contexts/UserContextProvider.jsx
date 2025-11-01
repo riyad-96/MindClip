@@ -1,9 +1,26 @@
-import { collection } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { auth } from '../config/firebase';
 const userContext = createContext();
 
 function UserContextProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+  const [appLoaded, setAppLoaded] = useState(false);
+  const [isActivityDisabled, setIsActivityDisabled] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        setUser(null);
+        setAppLoaded(true);
+        return;
+      }
+      setUser(currentUser);
+      setAppLoaded(true);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
@@ -39,7 +56,7 @@ function UserContextProvider({ children }) {
   const [isProfileLoaded, setIsProfileLoaded] = useState(false);
   const [profileData, setProfileData] = useState({});
 
-  return <userContext.Provider value={{ user, setUser, isTouchDevice, isDarkTheme, setIsDarkTheme, isProfileLoaded, setIsProfileLoaded, profileData, setProfileData }}>{children}</userContext.Provider>;
+  return <userContext.Provider value={{ user, setUser, appLoaded, isActivityDisabled, setIsActivityDisabled, isTouchDevice, isDarkTheme, setIsDarkTheme, isProfileLoaded, setIsProfileLoaded, profileData, setProfileData }}>{children}</userContext.Provider>;
 }
 
 export default UserContextProvider;

@@ -13,16 +13,55 @@ import Notes from './components/Notes.jsx';
 import Trash from './components/Trash.jsx';
 import ContextProviders from './contexts/ContextProviders.jsx';
 import EditSpace from './components/EditSpace.jsx';
+import HomeProtectedRoute from './routes/HomeProtectedRoute.jsx';
+import AuthProtectedRoute from './routes/AuthProtectedRoute.jsx';
+import NoteEditingProtectedRoute from './routes/NoteEditingProtectedRoute.jsx';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
+    path: '',
+    element: (
+      <ContextProviders>
+        <App />
+      </ContextProviders>
+    ),
     errorElement: <NotFound />,
     children: [
       {
+        path: '/',
+        element: (
+          <HomeProtectedRoute>
+            <Home />
+          </HomeProtectedRoute>
+        ),
+        children: [
+          {
+            path: '',
+            element: <Notes />,
+            children: [
+              {
+                path: ':noteId',
+                element: (
+                  <NoteEditingProtectedRoute>
+                    <EditSpace />
+                  </NoteEditingProtectedRoute>
+                ),
+              },
+            ],
+          },
+          {
+            path: 'trash',
+            element: <Trash />,
+          },
+        ],
+      },
+      {
         path: 'auth',
-        element: <Auth />,
+        element: (
+          <AuthProtectedRoute>
+            <Auth />
+          </AuthProtectedRoute>
+        ),
         children: [
           {
             path: 'log-in',
@@ -34,34 +73,12 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: 'home',
-        element: <Home />,
-        children: [
-          {
-            path: 'notes',
-            element: <Notes />,
-            children: [
-              {
-                path: ':noteId',
-                element: <EditSpace />,
-              },
-            ],
-          },
-          {
-            path: 'trash',
-            element: <Trash />,
-          },
-        ],
-      },
     ],
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ContextProviders>
-      <RouterProvider router={router} />
-    </ContextProviders>
+    <RouterProvider router={router} />
   </StrictMode>,
 );

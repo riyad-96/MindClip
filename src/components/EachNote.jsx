@@ -35,7 +35,7 @@ function EachNote({ state, func }) {
       <span
         onClick={() => {
           if (selectedNotes.length === 0) {
-            navigate(`/home/notes/${id}`);
+            navigate(`/${id}`);
           } else {
             selectNotes(id);
           }

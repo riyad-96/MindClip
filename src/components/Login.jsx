@@ -98,6 +98,7 @@ function Login() {
       } else {
         setLoginError('Incorrect email or password.');
       }
+    } finally {
       setTryingToLogin(false);
     }
   }

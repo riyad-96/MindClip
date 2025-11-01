@@ -2,11 +2,11 @@ import { NoteSvg, TrashSvg, ZeroSvg } from '../components/Svgs';
 import { NavLink, Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import { useState } from 'react';
-import { useHelper } from '../contexts/contexts';
+import { useUser } from '../contexts/UserContextProvider';
 
 function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { isActivityDisabled } = useHelper();
+  const { isActivityDisabled } = useUser();
 
   function openSidebar() {
     setIsSidebarOpen(true);
@@ -20,7 +20,7 @@ function Home() {
         <aside className={`h-full w-[250px] border-r-1 border-zinc-200 bg-zinc-50 transition-[translate,background-color,border-color] duration-[400ms,150ms,150ms] max-md:fixed max-md:top-0 max-md:left-0 max-md:z-10 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white ${isSidebarOpen ? 'translate-x-0' : 'max-md:translate-x-[-100%]'}`}>
           <div className="flex items-center justify-between p-3">
             <span onClick={() => window.location.reload()} className="cursor-pointer text-[length:clamp(1.325rem,1.1121rem+0.7921vw,1.825rem)] font-medium select-none">
-              ZeroNote
+              KitzoNote
             </span>
             <button onClick={() => setIsSidebarOpen(false)} className="cursor-pointer active:scale-95 md:hidden">
               <ZeroSvg className="sidebar-svg" width="30" height="30" />
@@ -28,11 +28,11 @@ function Home() {
           </div>
 
           <div className="grid gap-1.5 bg-zinc-100 p-3 transition-[background-color] duration-150 dark:bg-zinc-800">
-            <NavLink to="/home/notes" className={({ isActive }) => `flex h-[40px] items-center gap-2 rounded-md border-1 border-transparent px-3 transition-colors duration-150 hover:border-zinc-300 hover:bg-zinc-200 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 ${isActive && 'border-zinc-300 bg-zinc-200 dark:border-zinc-600 dark:bg-zinc-700'}`}>
+            <NavLink to="/" className={({ isActive }) => `flex h-[40px] items-center gap-2 rounded-md border-1 border-transparent px-3 transition-colors duration-150 hover:border-zinc-300 hover:bg-zinc-200 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 ${isActive && 'border-zinc-300 bg-zinc-200 dark:border-zinc-600 dark:bg-zinc-700'}`}>
               <NoteSvg width="18" height="18" />
               <span>Notes</span>
             </NavLink>
-            <NavLink to="/home/trash" className={({ isActive }) => `flex h-[40px] items-center gap-2 rounded-md border-1 border-transparent px-3 transition-colors duration-150 hover:border-zinc-300 hover:bg-zinc-200 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 ${isActive && 'border-zinc-300 bg-zinc-200 dark:border-zinc-600 dark:bg-zinc-700'}`}>
+            <NavLink to="/trash" className={({ isActive }) => `flex h-[40px] items-center gap-2 rounded-md border-1 border-transparent px-3 transition-colors duration-150 hover:border-zinc-300 hover:bg-zinc-200 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 ${isActive && 'border-zinc-300 bg-zinc-200 dark:border-zinc-600 dark:bg-zinc-700'}`}>
               <TrashSvg width="20" height="20" />
               <span>Trash</span>
             </NavLink>

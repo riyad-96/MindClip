@@ -5,10 +5,7 @@ const notesContext = createContext();
 function NotesContextProvider({ children }) {
   const [notes, setNotes] = useState([]);
   const [trashes, setTrashes] = useState([]);
-
-  useEffect(() => {
-    console.log(notes);
-  }, [notes]);
+  const [notesLoading, setNotesLoading] = useState(true);
 
   // Add note to database
   async function addNoteToDatabase({ notesCollectionRef, databaseNote }) {
@@ -29,7 +26,7 @@ function NotesContextProvider({ children }) {
     }
   }
 
-  return <notesContext.Provider value={{ notes, setNotes, addNoteToDatabase, trashes, setTrashes }}>{children}</notesContext.Provider>;
+  return <notesContext.Provider value={{ notes, setNotes, notesLoading, setNotesLoading, addNoteToDatabase, trashes, setTrashes }}>{children}</notesContext.Provider>;
 }
 
 export default NotesContextProvider;
