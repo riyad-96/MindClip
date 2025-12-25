@@ -102,7 +102,7 @@ function Header({ func }) {
         <button onClick={openSidebar} className="cursor-pointer active:scale-95 md:hidden">
           <ZeroSvg className="sidebar-svg" width="30" height="30" />
         </button>
-        <span className="font-medium max-md:text-[length:clamp(1.325rem,1.1121rem+0.7921vw,1.825rem)]">KitzoNote</span>
+        <span className="font-medium max-md:text-[length:clamp(1.325rem,1.1121rem+0.7921vw,1.825rem)]">MindClip</span>
       </div>
 
       <div className="flex items-center gap-4">

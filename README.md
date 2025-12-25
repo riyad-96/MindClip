@@ -1,6 +1,6 @@
-# KitzoNote
+# MindClip
 
-🔗 Live Preview: **[KitzoNote](https://kitzonote.vercel.app)**
+🔗 Live Preview: **[MindClip](https://mindclip.vercel.app)**
 
 > A fast note jutsu — jot, save, and organize your ideas.
 
@@ -30,15 +30,4 @@
   "react-dom": "^19.1.0",
   "react-router-dom": "^7.6.3"
 }
-```
-
-#### ⚙️ Run this project
-
-- Open terminal and run the commands
-
-```bash
-git clone https://github.com/riyad-96/KitzoNote.git
-cd KitzoNote
-npm i
-npm run dev
 ```
